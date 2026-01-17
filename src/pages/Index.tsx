@@ -36,6 +36,7 @@ const Index = () => {
   const [customPrompt, setCustomPrompt] = useState("");
   const [status, setStatus] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
+  console.log("selectedImage", selectedImage, selectedImage instanceof File);
 
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -197,7 +198,6 @@ const Index = () => {
       <ErrorModal
         isOpen={showErrorModal}
         onClose={() => setShowErrorModal(false)}
-        onTryAgain={handleGenerate}
         onGoBack={handleReset}
         errorMessage={errorMessage}
       />

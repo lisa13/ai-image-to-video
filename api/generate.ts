@@ -21,7 +21,8 @@ function parseForm(req: VercelRequest) {
                 console.error("Form parsing error:", err);
                 reject(err);
             } else {
-
+                console.log("Parsed fields:", Object.keys(fields));
+                console.log("Parsed files:", Object.keys(files));
                 resolve({ fields, files });
             }
         });

@@ -12,7 +12,6 @@ import { AlertCircle } from 'lucide-react';
 interface ErrorModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onTryAgain: () => void;
     onGoBack: () => void;
     errorMessage?: string;
 }
@@ -20,7 +19,6 @@ interface ErrorModalProps {
 export const ErrorModal = ({
     isOpen,
     onClose,
-    onTryAgain,
     onGoBack,
     errorMessage,
 }: ErrorModalProps) => {
@@ -59,12 +57,6 @@ export const ErrorModal = ({
                         className="w-full sm:w-auto"
                     >
                         Go back
-                    </Button>
-                    <Button
-                        onClick={onTryAgain}
-                        className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90"
-                    >
-                        Try again
                     </Button>
                 </DialogFooter>
             </DialogContent>
