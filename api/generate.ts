@@ -13,7 +13,7 @@ const replicate = new Replicate({
 
 // Wan video generation parameters
 // Duration ≈ num_frames / frames_per_second (e.g., 81 frames / 20 fps ≈ 4 seconds)
-const WAN_RESOLUTION = "480p"; // Cost-effective default
+const WAN_RESOLUTION = "720p"; // Cost-effective default
 const WAN_ASPECT_RATIO = "16:9";
 const WAN_FRAMES_PER_SECOND = 20;
 const WAN_NUM_FRAMES = 81; // Minimum allowed
