@@ -15,13 +15,31 @@ const startGeneration = async (image: File, prompt: string) => {
   fd.append("prompt", prompt);
 
   const r = await fetch("/api/generate", { method: "POST", body: fd });
-  if (!r.ok) throw new Error(await r.text());
+  if (!r.ok) {
+    // API returns JSON with { error: "..." } on error
+    try {
+      const errorData = await r.json();
+      throw new Error(errorData.error || `HTTP ${r.status}: ${r.statusText}`);
+    } catch (parseError) {
+      // Fallback if response is not JSON
+      throw new Error(`HTTP ${r.status}: ${r.statusText}`);
+    }
+  }
   return (await r.json()) as { id: string; status: string };
 };
 
 const pollStatus = async (id: string) => {
   const r = await fetch(`/api/status?id=${encodeURIComponent(id)}`);
-  if (!r.ok) throw new Error(await r.text());
+  if (!r.ok) {
+    // API returns JSON with { error: "..." } on error
+    try {
+      const errorData = await r.json();
+      throw new Error(errorData.error || `HTTP ${r.status}: ${r.statusText}`);
+    } catch (parseError) {
+      // Fallback if response is not JSON
+      throw new Error(`HTTP ${r.status}: ${r.statusText}`);
+    }
+  }
   return (await r.json()) as {
     status: string;
     videoUrl: string | null;
@@ -36,8 +54,6 @@ const Index = () => {
   const [customPrompt, setCustomPrompt] = useState("");
   const [status, setStatus] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
-  console.log("selectedImage", selectedImage, selectedImage instanceof File);
-
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Error modal state
